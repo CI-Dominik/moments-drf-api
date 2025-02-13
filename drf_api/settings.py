@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import re # noqa
 import dj_database_url
 
 load_dotenv()
@@ -61,7 +62,7 @@ DEBUG = os.environ.get("DEBUG")
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'ci-dominik-moments-drf-api-99e62332b100.herokuapp.com'
+    os.environ.get("ALLOWED_HOST")
 ]
 
 
@@ -113,9 +114,10 @@ if 'CLIENT_ORIGIN' in os.environ:
         os.environ.get('CLIENT_ORIGIN')
     ]
 else:
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        r"^https:\/\/.*\.codeinstitute-ide\.net$",
-    ]
+    if 'CLIENT_ORIGIN_DEV' in os.environ:
+        CORS_ALLOWED_ORIGIN_REGEXES = [
+            r"^https:\/\/.*\.codeinstitute-ide\.net$",
+        ]
 
 CORS_ALLOW_CREDENTIALS = True
 

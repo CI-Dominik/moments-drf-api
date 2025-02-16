@@ -63,7 +63,6 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     os.environ.get("ALLOWED_HOST"),
-    os.environ.get("ALLOWED_HOST_LOCAL")
 ]
 
 
@@ -114,11 +113,7 @@ if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
         os.environ.get('CLIENT_ORIGIN')
     ]
-else:
-    if 'CLIENT_ORIGIN_DEV' in os.environ:
-        CORS_ALLOWED_ORIGINS = [
-            os.environ.get('CLIENT_ORIGIN_DEV')
-        ]
+    print("Connected.")
 
 CORS_ALLOW_CREDENTIALS = True
 

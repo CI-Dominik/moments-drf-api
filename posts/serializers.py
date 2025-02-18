@@ -6,7 +6,7 @@ from likes.models import Like
 class PostSerializers(serializers.ModelSerializer):
     # Angabe der Werte, die überprüft werden sollen
     # Greift auf das Profil eines Owners zu und sucht dessen Namne raus
-    owner = serializers.ReadOnlyField(source='owner.profile.name')
+    owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')

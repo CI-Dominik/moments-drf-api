@@ -16,27 +16,18 @@ class PostSerializers(serializers.ModelSerializer):
 
     # DRF-Funktion zur Überprüfung eines Wertes
     # validate_EIGENSCHAFT ist immer die Syntax und value immer benötigt
-    """def validate_image(self, value):
-        # Dateigröße
-        image_info = cloudinary.api.resource(value.public_id)
-        if image_info['bytes'] > 1024 * 1024 * 2:
-            raise serializers.ValidationError(
-                'Image size larger than 2 MB!'
-            )
-        # Breite
-        if value.image.width > 4096:
-            raise serializers.ValidationError(
-                'Image width large than 4096 pixels!'
-            )
-        # Höhe
+    def validate_image(self, value):
+        if value.size > 2 * 1024 * 1024:
+            raise serializers.ValidationError('Image size larger than 2MB!')
         if value.image.height > 4096:
             raise serializers.ValidationError(
-                'Image height large than 4096 pixels!'
+                'Image height larger than 4096px!'
             )
-        return value"""
-    
-    def get_image(self, obj):
-        return obj.image.url
+        if value.image.width > 4096:
+            raise serializers.ValidationError(
+                'Image width larger than 4096px!'
+            )
+        return value
 
     # DRF-Methode zur Überprüfung des SerializerMethodFields
     def get_is_owner(self, obj):

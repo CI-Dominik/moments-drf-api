@@ -13,7 +13,6 @@ class PostSerializers(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
-    image = serializers.ImageField(source='image')
 
     # DRF-Funktion zur Überprüfung eines Wertes
     # validate_EIGENSCHAFT ist immer die Syntax und value immer benötigt
@@ -35,6 +34,9 @@ class PostSerializers(serializers.ModelSerializer):
                 'Image height large than 4096 pixels!'
             )
         return value"""
+    
+    def get_image(self, obj):
+        return obj.image.url
 
     # DRF-Methode zur Überprüfung des SerializerMethodFields
     def get_is_owner(self, obj):

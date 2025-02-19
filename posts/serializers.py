@@ -13,7 +13,6 @@ class PostSerializers(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
-    image = serializers.ReadOnlyField(source='image.url')
 
     # DRF-Funktion zur Überprüfung eines Wertes
     # validate_EIGENSCHAFT ist immer die Syntax und value immer benötigt

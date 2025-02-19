@@ -15,12 +15,18 @@ from dotenv import load_dotenv
 import os
 import re # noqa
 import dj_database_url
+import cloudinary
 
 load_dotenv()
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
 }
+
+cloudinary.config(
+    secure=True
+)
+
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 

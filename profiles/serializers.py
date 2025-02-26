@@ -13,9 +13,15 @@ class ProfileSerializers(serializers.ModelSerializer):
     # Anzahl der Posts mithilfe der views.py
     posts_count = serializers.ReadOnlyField()
     # Anzahl der Follower
-    followers_count = serializers.ReadOnlyField()
-    # Anzahl der gefolgten Sachen
-    following_count = serializers.ReadOnlyField()
+
+    followers_count = serializers.SerializerMethodField()
+    following_count = serializers.SerializerMethodField()
+
+    def get_followers_count(self, obj):
+        return Follower.objects.filter(followed=obj.owner).count()
+
+    def get_following_count(self, obj):
+        return Follower.objects.filter(owner=obj.owner).count()
 
     # Ruft den Context ab und vergleicht den Request mit dem Owner
     # obj muss immer benutzt werden und ist das Objekt, das geprüft wird
